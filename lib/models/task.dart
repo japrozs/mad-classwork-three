@@ -1,7 +1,3 @@
-// models/task.dart
-// Data contract between the UI and Firestore.
-// Every property must have a matching key in toMap() and fromMap().
-
 class Task {
   final String id;
   final String title;
@@ -17,7 +13,7 @@ class Task {
     required this.createdAt,
   });
 
-  /// Serialize → Firestore
+  // Serialize
   Map<String, dynamic> toMap() => {
     'title': title,
     'isCompleted': isCompleted,
@@ -25,7 +21,7 @@ class Task {
     'createdAt': createdAt.toIso8601String(),
   };
 
-  /// Deserialize ← Firestore snapshot
+  // Deserialize
   factory Task.fromMap(String id, Map<String, dynamic> data) => Task(
     id: id,
     title: data['title'] ?? '',
@@ -34,7 +30,7 @@ class Task {
     createdAt: DateTime.tryParse(data['createdAt'] ?? '') ?? DateTime.now(),
   );
 
-  /// Immutable update — used for toggling completion without re-creating the whole object
+  // Immutable update
   Task copyWith({
     String? id,
     String? title,
